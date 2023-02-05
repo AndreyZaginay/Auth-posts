@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 
+import { AuthGuard } from "src/app/shared/guards/auth.guard";
 import { DashboardComponent } from './dashboard.component';
 
 export const DashboardRouting: Routes = [
@@ -8,7 +9,9 @@ export const DashboardRouting: Routes = [
         component: DashboardComponent,
         children: [
                 {
-                    path: 'profile',
+                    path: 'profile/:id',
+                    canActivate: [ AuthGuard ],
+                    canLoad: [ AuthGuard ],
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 },
                 {

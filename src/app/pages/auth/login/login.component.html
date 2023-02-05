@@ -1,1 +1,22 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" action="">
+  <div class="input-div">
+    <span>Email</span>
+    <input type="text" formControlName="email" />
+  </div>
+  <div class="input-div">
+    <span>Firstname</span>
+    <input type="text" formControlName="firstName" />
+  </div>
+  <div class="input-div">
+    <span>Secondname</span>
+    <input type="text" formControlName="secondname" />
+  </div>
+  <div class="input-div">
+    <span>Password</span>
+    <input type="text" formControlName="password" />
+  </div>
+
+  <button [disabled]="loginForm.invalid" (click)="submitLoginForm()">
+    Register
+  </button>
+</form>
