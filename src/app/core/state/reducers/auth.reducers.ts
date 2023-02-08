@@ -8,7 +8,7 @@ import * as AuthActions from '../actions/auth.actions';
 const defaultAuthState: AuthState = {
   currentUser: null,
   isLoggedIn: false,
-  
+  error: null,
 };
 
 export const authReducer = createReducer(

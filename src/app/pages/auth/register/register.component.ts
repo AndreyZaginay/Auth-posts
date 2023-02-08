@@ -1,3 +1,4 @@
+import { UserService } from './../../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
@@ -12,7 +13,10 @@ import { Store } from '@ngrx/store';
 export class RegisterComponent implements OnInit{
   registerForm!: FormGroup;
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private readonly userService: UserService
+    ) {}
 
   ngOnInit(): void {
     this.initRegisterForm();
@@ -22,7 +26,8 @@ export class RegisterComponent implements OnInit{
     if (this.registerForm.invalid) {
       return
     }
-    
+    const user = this.registerForm.getRawValue();    
+    this.userService.post(user)
   }
 
   initRegisterForm(): void {

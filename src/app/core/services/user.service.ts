@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, CollectionReference, DocumentData, DocumentReference, Firestore } from '@angular/fire/firestore';
-import {  from, Observable, of, switchMap } from 'rxjs';
+import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
+import {  Observable, of, switchMap, map, from, tap } from 'rxjs';
 
 import { User } from '../state/interfaces/auth';
 
@@ -8,39 +8,33 @@ import { User } from '../state/interfaces/auth';
   providedIn: 'root'
 })
 export class UserService {
-  usersCollection: CollectionReference<DocumentData> = collection(this.firestore, 'users');
+  private readonly userCollection = (queryFn?: QueryFn) => this.firestore.collection<User>('users', queryFn);
 
-  constructor(private readonly firestore: Firestore) { }
+  constructor(private readonly firestore: AngularFirestore) {}
 
-    
-  getAll(): Observable<User[]> {
-    return collectionData(this.usersCollection, { idField: 'id'}) as Observable<User[]>
+  findOneByEmail(email: string): Observable<User> {
+    return this.userCollection(ref => ref.where('email', '==', email)).valueChanges().pipe(
+      map((users: User[]) => users[0])
+    );
+  }
+  
+
+  post(creditionals: User){
+    // return this.getAll().pipe(
+    //   switchMap((users: User[]) => {
+    //     const user = users.find(user => user.email === creditionals.email);
+    //     if (!user) {
+    //       return from(addDoc(this.usersCollection, creditionals));
+    //     }
+    //     return of('user already exist')
+    //   })
+    // )
+    // return from(addDoc(this.usersCollection, creditionals)).pipe(
+    //   map(result => result.id)
+    // );
+
+    // this.userCollection.add(creditionals)
   }
 
-  post(creditionals: User): Observable<DocumentReference<DocumentData> | string> {
-    return this.getAll().pipe(
-      switchMap((users: User[]) => {
-        const user = users.find(user => user.email === creditionals.email);
-        if (!user) {
-          return from(addDoc(this.usersCollection, creditionals));
-        }
-        return of('user already exist')
-      })
-    )
-  }
 
-  findUserByemail(creditionals: User): Observable<User | string> {
-    return this.getAll().pipe(
-      switchMap((users: User[]) => {
-        const user = users.find(user => user.email === creditionals.email);
-        if(!user) {
-          return of('user does not exist')
-        }
-        if(user.password !== creditionals.password) {
-          return of('wrong pass')
-        }
-        return of(user)
-      })
-    )
-  }
 }

@@ -12,13 +12,13 @@ export class AuthService {
 
   constructor(private readonly userService: UserService) { }
 
-  login(creditionals: User): Observable<User | string> {
-   return this.userService.findUserByemail(creditionals)
-  }
+  // login(creditionals: User): Observable<User | string> {
+  //  return this.userService.findUserByemail(creditionals)
+  // }
 
-  register(creditionals: User): Observable<User> {
-    return this.userService.post(creditionals)
-  }
+  // register(creditionals: User): Observable<User> {
+  //   return this.userService.post(creditionals)
+  // }
 
 
 
