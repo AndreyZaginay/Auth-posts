@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import {  iif, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { UserService } from './user.service';
@@ -12,13 +12,27 @@ export class AuthService {
 
   constructor(private readonly userService: UserService) { }
 
-  // login(creditionals: User): Observable<User | string> {
-  //  return this.userService.findUserByemail(creditionals)
-  // }
+  login(credentials: User): Observable<string> {
+   return this.userService.findOneByEmail(credentials.email).pipe(
+    tap(user => console.log(user)),
+    switchMap(user => iif(
+      () => user && user.password === credentials.password,
+      of(user.email),
+      throwError(() => of(new Error('login error')))
+      ))
+   )
+  }
 
-  // register(creditionals: User): Observable<User> {
-  //   return this.userService.post(creditionals)
-  // }
+  register(credentials: User): Observable<string>{
+    return this.userService.findOneByEmail(credentials.email).pipe(
+      switchMap(user => {
+        if (user) {
+          return throwError(() => of(new Error('register error')));
+        }
+        return this.userService.post(credentials);
+      })
+    )
+  }
 
 
 

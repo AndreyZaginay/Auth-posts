@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentChangeAction, QueryFn } from '@angular/fire/compat/firestore';
+
 import {  Observable, of, switchMap, map, from, tap } from 'rxjs';
 
 import { User } from '../state/interfaces/auth';
@@ -13,28 +14,19 @@ export class UserService {
   constructor(private readonly firestore: AngularFirestore) {}
 
   findOneByEmail(email: string): Observable<User> {
-    return this.userCollection(ref => ref.where('email', '==', email)).valueChanges().pipe(
-      map((users: User[]) => users[0])
-    );
-  }
-  
-
-  post(creditionals: User){
-    // return this.getAll().pipe(
-    //   switchMap((users: User[]) => {
-    //     const user = users.find(user => user.email === creditionals.email);
-    //     if (!user) {
-    //       return from(addDoc(this.usersCollection, creditionals));
-    //     }
-    //     return of('user already exist')
-    //   })
-    // )
-    // return from(addDoc(this.usersCollection, creditionals)).pipe(
-    //   map(result => result.id)
-    // );
-
-    // this.userCollection.add(creditionals)
+    return this.userCollection(ref => ref.where('email', '==', email)).snapshotChanges().pipe(
+      map((users: DocumentChangeAction<User>[]) => users[0]),
+      map(user => {
+        const id = user.payload.doc.id;
+        const data = user.payload.doc.data();
+        return { id, ...data }
+      })
+    )
   }
 
-
+  post(credentials: User){
+   return from(this.userCollection().add(credentials)).pipe(
+      map(data => data.id)
+    )
+  }
 }

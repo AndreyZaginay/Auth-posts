@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit{
       return
     }
     const user = this.registerForm.getRawValue();    
-    this.userService.post(user)
+    this.userService.post(user).subscribe(console.log);
   }
 
   initRegisterForm(): void {
