@@ -8,13 +8,18 @@ import * as AuthActions from '../actions/auth.actions';
 
 @Injectable()
 export class AuthEffects {
-  // login$ = createEffect(() => this.actions$.pipe(
-  //   ofType(AuthActions.login),
-  //   mergeMap(({ credentials }) => this.authService.login({email: credentials.email, password: credentials.password})),
-  //   map(user => AuthActions.loginSuccessful({ user })),
-  //   tap(() => this.router.navigate([''])),
-  //   catchError(() => of())
-  // ));
+
+  login$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.login),
+    tap((data) => console.log('effect work', data)),
+    mergeMap(({credentials}) => this.authService.login(credentials).pipe(
+      tap((data) => console.log('effect work2', data)),
+      map(user => AuthActions.loginSuccessful({ user })),
+      tap(() => this.router.navigate([''])),
+      catchError((error) => of(AuthActions.loginFailed({ msg: error }))
+    )),
+  
+  )));
 
   // logout$ = createEffect(() => this.actions$.pipe(
   //   ofType(AuthActions.logout),

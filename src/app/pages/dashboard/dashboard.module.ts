@@ -13,7 +13,6 @@ import { DashboardRouting } from './dashboard.routing';
   imports: [
     CommonModule,
     RouterModule.forChild(DashboardRouting),
-
   ]
 })
 export class DashboardModule { }

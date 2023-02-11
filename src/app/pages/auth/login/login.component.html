@@ -10,5 +10,8 @@
   <button [disabled]="loginForm.invalid" (click)="submitLoginForm()">
     Login
   </button>
-  <a href="/auth/register">register</a>
+  <span *ngIf="error$ | async as error">
+    {{ error }}
+  </span>
+  <a routerLink="/auth/register">register</a>
 </form>

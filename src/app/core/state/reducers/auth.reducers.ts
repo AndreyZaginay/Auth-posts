@@ -1,12 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { AuthState } from "../interfaces/auth";
+import { AuthState, User } from "../interfaces/auth";
 import * as AuthActions from '../actions/auth.actions';
 
-
+const defaultUser: User = {
+  firstName: '',
+  secondName: '',
+  email: '',
+  password: ''
+} 
 
 const defaultAuthState: AuthState = {
-  currentUser: null,
+  currentUser: defaultUser,
   isLoggedIn: false,
   error: null,
 };
@@ -20,7 +25,7 @@ export const authReducer = createReducer(
   })),
   on(AuthActions.logoutSuccessful, state => ({
     ...state,
-    user: null,
+    user: defaultUser,
     isLoggedIn: false,
   })),
   on(AuthActions.registerSuccessful, (state, { user }) => ({

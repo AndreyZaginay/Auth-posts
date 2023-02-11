@@ -15,11 +15,11 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     BrowserModule,
-    CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     AngularFirestoreModule,
-    AngularFireAnalyticsModule
+    AngularFireAnalyticsModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

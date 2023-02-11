@@ -1,7 +1,8 @@
-import { UserService } from './../../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
+
+import * as AuthActions from '../../../core/state/actions/auth.actions'
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,6 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private readonly store: Store,
-    private readonly userService: UserService
     ) {}
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit{
       return
     }
     const user = this.registerForm.getRawValue();    
-    this.userService.post(user).subscribe(console.log);
+
   }
 
   initRegisterForm(): void {

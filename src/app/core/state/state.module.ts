@@ -4,14 +4,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { AuthEffects } from './effects/auth.effects';
+import { authReducer } from './reducers/auth.reducers';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({auth: authReducer}),
+    EffectsModule.forRoot([AuthEffects ]),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ]
 })

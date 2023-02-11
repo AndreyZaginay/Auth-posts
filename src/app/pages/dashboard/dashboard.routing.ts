@@ -9,7 +9,7 @@ export const DashboardRouting: Routes = [
         component: DashboardComponent,
         children: [
                 {
-                    path: 'profile/:id',
+                    path: 'profile',
                     canActivate: [ AuthGuard ],
                     canLoad: [ AuthGuard ],
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),

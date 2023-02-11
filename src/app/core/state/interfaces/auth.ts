@@ -1,11 +1,11 @@
 export interface AuthState {
-    currentUser: User | null;
+    currentUser: User;
     isLoggedIn: boolean;
     error: string | null;
 }
 
 export interface User {
-    id: string;
+    id?: string;
     email: string;
     password: string;
     firstName: string;
