@@ -1,9 +1,10 @@
-import {  iif, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { iif, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { loginCredentials, registerCredentials } from './../state/interfaces/auth';
 import { UserService } from './user.service';
-import { User } from '../state/interfaces/auth';
+import { LoginCredentials } from "../entities/login-credentials";
+import { SystemUser } from "../entities/system-user";
+import { RegisterCredentials } from "../entities/reigster-credentials";
 
 
 @Injectable({
@@ -11,34 +12,27 @@ import { User } from '../state/interfaces/auth';
 })
 export class AuthService {
 
-  constructor(private readonly userService: UserService) { }
-
-  login(credentials: loginCredentials): Observable<User> {
-   return this.userService.findOneByEmail(credentials.email).pipe(
-    tap(user => console.log(user)),
-    switchMap(user => iif(
-      () => user && user.password === credentials.password,
-      of(user),
-      throwError(() => of(new Error('login error')))
-      ))
-   )
+  constructor(private readonly userService: UserService) {
   }
 
-  register(credentials: registerCredentials): Observable<User>{
-    return this.userService.findOneByEmail(credentials.email).pipe(
-      switchMap(user => {
-        if (user) {
-          return throwError(() => of(new Error('register error')));
-        }
-      return this.userService.post({...credentials});
-      })
-    )
+  login(credentials: LoginCredentials): Observable<SystemUser> {
+    return this.userService.findUserByEmail(credentials.email).pipe(
+      switchMap((user: SystemUser) => user ? of(user) : throwError(() => new Error('Wrong email or password', { cause: 'Invalid credentials' })))
+    );
   }
 
-
+  // register(credentials: RegisterCredentials): Observable<SystemUser>{
+  //   return this.userService.findOneByEmail(credentials.email).pipe(
+  //     switchMap(user => {
+  //       if (user) {
+  //         return throwError(() => of(new Error('register error')));
+  //       }
+  //     return this.userService.post({...credentials});
+  //     })
+  //   )
+  // }
 
   logout(): Observable<string> {
     return of('');
   }
-
 }

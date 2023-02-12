@@ -1,28 +1,34 @@
-import { UserService } from './../../../core/services/user.service';
-import { Observable } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 
+import { UserService } from './../../../core/services/user.service';
 import * as AuthActions from '../../../core/state/actions/auth.actions';
-import { selectError } from 'src/app/core/state/selectors/auth.selectors';
-
+import { selectError, selectLoggedIn, selectUser } from 'src/app/core/state/selectors/auth.selectors';
+import { LoginCredentials } from "../../../core/entities/login-credentials";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: [ './login.component.scss' ],
   standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule, RouterModule, CommonModule ]
+  imports: [ FormsModule, ReactiveFormsModule, RouterModule, CommonModule, RouterModule ]
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  error$: Observable<string | null> = this.store.select(selectError);
-  constructor(private readonly store: Store,
-    private readonly userService: UserService
-    ) {}
+  readonly error$: Observable<string | undefined> = this.store.select(selectError).pipe(
+    tap(() => this.loginForm.reset())
+  );
+
+  constructor(
+    private readonly store: Store,
+    private readonly router: Router,
+    private readonly userService: UserService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.initLoginForm();
@@ -32,20 +38,14 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return
     }
-    const credentials = {...this.loginForm.getRawValue()};
-    console.log(credentials);
-    
-    this.store.dispatch(AuthActions.login(credentials));
-    // console.log(credentials);
-    
-    // this.userService.findOneByEmail(credentials.email).subscribe(console.log)
-    
+    const loginCredentials: LoginCredentials = { ...this.loginForm.getRawValue() };
+    this.store.dispatch(AuthActions.login({ loginCredentials }));
   }
 
   initLoginForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
+      email: new FormControl('', [ Validators.required ]),
+      password: new FormControl('', [ Validators.required ])
     })
   }
 }

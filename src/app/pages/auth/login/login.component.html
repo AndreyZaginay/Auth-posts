@@ -1,16 +1,16 @@
 <form [formGroup]="loginForm" action="">
   <div class="input-div">
     <span>Email</span>
-    <input type="text" formControlName="email" />
+    <input type="text" formControlName="email"/>
   </div>
   <div class="input-div">
     <span>Password</span>
-    <input type="text" formControlName="password" />
+    <input type="text" formControlName="password"/>
   </div>
   <button [disabled]="loginForm.invalid" (click)="submitLoginForm()">
     Login
   </button>
-  <span *ngIf="error$ | async as error">
+  <span *ngIf="error$ | async as error" [style]="{color: 'red'}">
     {{ error }}
   </span>
   <a routerLink="/auth/register">register</a>

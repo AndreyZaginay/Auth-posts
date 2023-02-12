@@ -1,19 +1,21 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { AuthState, User } from "../interfaces/auth";
+import { AuthState } from "../interfaces/auth";
 import * as AuthActions from '../actions/auth.actions';
+import { SystemUser } from "../../entities/system-user";
 
-const defaultUser: User = {
-  firstName: '',
-  secondName: '',
+const defaultUser: SystemUser = {
+  id: '',
+  firstname: '',
+  lastname: '',
   email: '',
   password: ''
-} 
+}
 
 const defaultAuthState: AuthState = {
   currentUser: defaultUser,
   isLoggedIn: false,
-  error: null,
+  error: undefined,
 };
 
 export const authReducer = createReducer(
@@ -22,6 +24,10 @@ export const authReducer = createReducer(
     ...state,
     currentUser: user,
     isLoggedIn: true,
+  })),
+  on(AuthActions.loginFailed, (state, { error }) => ({
+    ...state,
+    error,
   })),
   on(AuthActions.logoutSuccessful, state => ({
     ...state,

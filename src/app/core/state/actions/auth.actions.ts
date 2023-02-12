@@ -1,20 +1,19 @@
-import { User } from './../interfaces/auth';
 import { createAction, props } from '@ngrx/store';
 
-import { Login } from '../../entities/login';
-import { Register } from '../../entities/register';
+import { LoginCredentials } from "../../entities/login-credentials";
+import { SystemUser } from "../../entities/system-user";
+import { RegisterCredentials } from "../../entities/reigster-credentials";
 
-export const login = createAction('[Auth] Login', props<{ credentials: Login }>());
-export const loginSuccessful = createAction('[Auth] Login Successful', props<{ user: User }>());
-export const loginFailed = createAction('[Auth] Login failed', props<{ msg: string}>());
-
+export const login = createAction('[Auth] Login', props<{ loginCredentials: LoginCredentials }>());
+export const loginSuccessful = createAction('[Auth] Login Successful', props<{ user: SystemUser }>());
+export const loginFailed = createAction('[Auth] Login failed', props<{ error: Error }>());
 
 export const logout = createAction('[Auth] Logout');
 export const logoutSuccessful = createAction('[Auth] Logout Successful');
-export const logoutFailed = createAction('[Auth] Logout failed', props<{ msg: string }>());
+export const logoutFailed = createAction('[Auth] Logout Failed', props<{ error: Error }>());
 
-export const register = createAction('[Auth] Register', props<{ credentials: Register }>());
-export const registerSuccessful = createAction('[Auth] Register Successful', props<{ user: User }>());
-export const registerFailed = createAction('[Auth] Register failed', props<{ msg: string}>());
+export const register = createAction('[Auth] Register', props<{ registerCredentials: RegisterCredentials }>());
+export const registerSuccessful = createAction('[Auth] Register Successful', props<{ user: SystemUser }>());
+export const registerFailed = createAction('[Auth] Register Failed', props<{ error: Error }>());
 
 

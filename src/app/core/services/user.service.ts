@@ -1,39 +1,44 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction, QueryFn } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentChangeAction, QueryFn, DocumentReference } from '@angular/fire/compat/firestore';
 
-import {  Observable, of, switchMap, map, from, tap } from 'rxjs';
+import { Observable, of, switchMap, map, from, tap, EMPTY } from 'rxjs';
+import { SystemUser } from "../entities/system-user";
+import { RegisterCredentials } from "../entities/reigster-credentials";
+import { CollectionUser } from "../entities/collection-user";
 
-import { User } from '../state/interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private readonly userCollection = (queryFn?: QueryFn) => this.firestore.collection<User>('users', queryFn);
+  private readonly userCollection = (queryFn?: QueryFn) => this.firestore.collection<CollectionUser>('users', queryFn);
 
-  constructor(private readonly firestore: AngularFirestore) {}
+  constructor(private readonly firestore: AngularFirestore) {
+  }
 
-  findOneByEmail(email: string): Observable<any> {
+  findUserByEmail(userEmail: string): Observable<SystemUser> {
     // return this.userCollection(ref => ref.where('email', '==', email)).snapshotChanges().pipe(
-    //   map((users: DocumentChangeAction<User>[]) => users[0])
+    //   map((users: DocumentChangeAction<SystemUser>[]) => users[0])
     //   // map(user => {
     //   //   const id = user.payload.doc.id;
     //   //   const data = user.payload.doc.data();
     //   //   return { id, ...data };
     //   // })
     // )
-    return this.userCollection(ref => ref.where('email', '==', email)).valueChanges().pipe(
-      map((users: User[]) => users[0]))
+    return this.userCollection(ref => ref.where('email', '==', userEmail)).valueChanges({ idField: 'id' }).pipe(
+      map((users: SystemUser[]) => users[0])
+    );
   }
 
-  findOneById(userId: string): Observable<any> {
-    return this.userCollection().doc(userId).snapshotChanges();
+  findUserById(userId: string): Observable<SystemUser> {
+    return this.userCollection().doc(userId).valueChanges({ idField: 'id' }).pipe(
+      switchMap((user: SystemUser | undefined) => user ? of(user) : EMPTY)
+    );
   }
 
-  post(credentials: User): Observable<User> {
-   return from(this.userCollection().add(credentials)).pipe(
-      map(data => data.id),
-      switchMap(userId => this.findOneById(userId)),
-    )
+  createUser(createUserDto: RegisterCredentials): Observable<SystemUser> {
+    return from(this.userCollection().add(createUserDto)).pipe(
+      map(({ id }) => ({ id, ...createUserDto }))
+    );
   }
 }
