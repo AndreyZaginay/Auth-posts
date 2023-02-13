@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, of, tap } from "rxjs";
 import { Router } from "@angular/router";
 
-import { AuthService } from "../../services/auth.service";
-import * as AuthActions from '../actions/auth.actions';
+import { AuthService } from "@shomas/services";
+import { AuthActions } from '@shomas/state';
 
 @Injectable()
 export class AuthEffects {
@@ -12,7 +12,7 @@ export class AuthEffects {
     ofType(AuthActions.login),
     mergeMap(({ loginCredentials }) => this.authService.login(loginCredentials).pipe(
       map(user => AuthActions.loginSuccessful({ user })),
-      // tap(() => this.router.navigate([''])),
+      tap(() => this.router.navigate([''])),
       catchError((error: Error) => of(AuthActions.loginFailed({ error }))
     ))),
   ));

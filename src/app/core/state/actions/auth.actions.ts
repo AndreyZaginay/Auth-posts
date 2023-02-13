@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { LoginCredentials } from "../../entities/login-credentials";
-import { SystemUser } from "../../entities/system-user";
-import { RegisterCredentials } from "../../entities/reigster-credentials";
+import { LoginCredentials, SystemUser, RegisterCredentials } from '@shomas/entities';
 
 export const login = createAction('[Auth] Login', props<{ loginCredentials: LoginCredentials }>());
 export const loginSuccessful = createAction('[Auth] Login Successful', props<{ user: SystemUser }>());

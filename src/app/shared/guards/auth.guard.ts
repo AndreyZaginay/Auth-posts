@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 
-import { selectLoggedIn } from 'src/app/core/state/selectors/auth.selectors';
+import { selectLoggedIn } from "@shomas/state";
 
 @Injectable({
   providedIn: 'root'

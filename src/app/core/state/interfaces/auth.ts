@@ -1,4 +1,4 @@
-import { SystemUser } from "../../entities/system-user";
+import { SystemUser } from '@shomas/entities';
 
 export interface AuthState {
   currentUser: SystemUser;

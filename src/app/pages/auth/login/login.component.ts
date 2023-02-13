@@ -1,14 +1,12 @@
 import { Observable, tap } from 'rxjs';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 
-import { UserService } from './../../../core/services/user.service';
-import * as AuthActions from '../../../core/state/actions/auth.actions';
-import { selectError, selectLoggedIn, selectUser } from 'src/app/core/state/selectors/auth.selectors';
-import { LoginCredentials } from "../../../core/entities/login-credentials";
+import { AuthActions, selectError } from '@shomas/state';
+import { LoginCredentials } from "@shomas/entities";
 
 @Component({
   selector: 'app-login',
@@ -25,8 +23,6 @@ export class LoginComponent {
 
   constructor(
     private readonly store: Store,
-    private readonly router: Router,
-    private readonly userService: UserService,
   ) {
   }
 

@@ -1,8 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { AuthState } from "../interfaces/auth";
-import * as AuthActions from '../actions/auth.actions';
-import { SystemUser } from "../../entities/system-user";
+import { AuthActions, AuthState, SystemUser } from '@shomas/core';
 
 const defaultUser: SystemUser = {
   id: '',
