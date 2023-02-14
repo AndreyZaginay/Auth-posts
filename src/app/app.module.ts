@@ -8,10 +8,12 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ContentComponent } from './pages/content/content.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ContentComponent,
   ],
   imports: [
     BrowserModule,

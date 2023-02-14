@@ -14,15 +14,6 @@ export const DashboardRouting: Routes = [
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 },
                 {
-                    path: 'posts',
-                    loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
-                },
-                {
-                    path: '',
-                    pathMatch: 'full',
-                    redirectTo: 'posts'
-                },
-                {
                     path: '**',
                     redirectTo: ''
                 }

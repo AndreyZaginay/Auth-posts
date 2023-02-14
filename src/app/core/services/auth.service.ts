@@ -1,10 +1,9 @@
 import { iif, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { UserService } from './user.service';
-import { LoginCredentials } from "../entities/login-credentials";
-import { SystemUser } from "../entities/system-user";
-import { RegisterCredentials } from "../entities/reigster-credentials";
+import { SystemUser, LoginCredentials } from '@shomas/entities';
+import { UserService } from '@shomas/services';
+
 
 
 @Injectable({

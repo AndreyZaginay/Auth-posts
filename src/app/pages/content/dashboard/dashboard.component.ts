@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from './../../core/services/user.service';
 
 const obj = {
   email: 'first',
@@ -16,7 +15,7 @@ const obj = {
 })
 export class DashboardComponent implements OnInit{
 
-  constructor (private readonly userService: UserService) {}
+  constructor () {}
 
   ngOnInit(): void {
     // this.userService.findOneByEmail(obj.email).subscribe(console.log)
