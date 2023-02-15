@@ -1,12 +1,15 @@
-import { ContentRouting } from './content.routing';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ContentRouting } from './content.routing';
+import { ContentComponent } from './content.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ContentComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(ContentRouting)

@@ -1,4 +1,4 @@
-import { PostsState } from '../../../pages/dashboard/posts/state/posts-state.interface'
+import { PostsState } from '../../../pages/content/posts/state/posts-state.interface'
 import { AuthState } from "./auth";
 
 export interface AppState {
