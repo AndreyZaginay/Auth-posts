@@ -4,12 +4,14 @@ import { RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRouting } from './dashboard.routing';
+import { AddPostComponent } from './add-post/add-post.component';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    AddPostComponent
   ],
   imports: [
     CommonModule,

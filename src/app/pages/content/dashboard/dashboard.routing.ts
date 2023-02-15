@@ -1,6 +1,6 @@
+import { AddPostComponent } from './profile/add-post/add-post.component';
 import { Routes } from "@angular/router";
 
-import { AuthGuard } from "src/app/shared/guards/auth.guard";
 import { DashboardComponent } from './dashboard.component';
 
 export const DashboardRouting: Routes = [
@@ -10,12 +10,20 @@ export const DashboardRouting: Routes = [
         children: [
                 {
                     path: 'profile',
-                    canActivate: [ AuthGuard ],
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 },
                 {
+                    path: 'add-post',
+                    component: AddPostComponent
+                },
+                {
                     path: '**',
-                    redirectTo: ''
+                    redirectTo: 'profile'
+                },
+                {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'profile'
                 }
         ]
     }
