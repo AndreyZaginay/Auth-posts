@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
 
-import * as AuthActions from '../../../core/state/actions/auth.actions'
+import { AuthActions } from '@shomas/state'
+
 
 @Component({
   selector: 'app-register',
@@ -26,8 +27,8 @@ export class RegisterComponent implements OnInit{
     if (this.registerForm.invalid) {
       return
     }
-    const user = this.registerForm.getRawValue();    
-
+    const newUser = this.registerForm.getRawValue();    
+    this.store.dispatch(AuthActions.register(newUser));
   }
 
   initRegisterForm(): void {

@@ -8,6 +8,7 @@ import { AuthActions } from '@shomas/state';
 
 @Injectable()
 export class AuthEffects {
+
   readonly login$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.login),
     mergeMap(({ loginCredentials }) => this.authService.login(loginCredentials).pipe(
@@ -17,26 +18,25 @@ export class AuthEffects {
     ))),
   ));
 
-  // logout$ = createEffect(() => this.actions$.pipe(
-  //   ofType(AuthActions.logout),
-  //   mergeMap(() => this.authService.logout()),
-  //   map(() => AuthActions.logoutSuccessful()),
-  //   tap(() => this.router.navigate(['auth'])),
-  // ));
+  readonly register$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.register),
+    mergeMap(({ registerCredentials }) => this.authService.register(registerCredentials)),
+    map(user => AuthActions.registerSuccessful({ user })),
+    tap(() => this.router.navigate(['content/dashboard/profile'])),
+    catchError((error: Error) => of(AuthActions.registerFailed({ error }))
+  )));
 
-  // register = createEffect(() => this.actions$.pipe(
-  //   ofType(AuthActions.register),
-  //   mergeMap(({ credentials }) => this.authService.register({email: credentials.email, password: credentials.password})),
-  //   map(user => AuthActions.registerSuccessful({ user })),
-  //   tap(() => this.router.navigate([''])),
-  //   catchError(() => of({ type: '[Movies API] Movies Loaded Error' })
-
-  // ));
+  readonly logout$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.logout),
+    mergeMap(() => this.authService.logout()),
+    map(() => AuthActions.logoutSuccessful()),
+    tap(() => this.router.navigate(['auth'])),
+    catchError((error: Error) => of(AuthActions.logoutFailed({ error }))
+  )));
 
   constructor(
     private readonly actions$: Actions,
     private readonly router: Router,
     private readonly authService: AuthService
-  ) {
-  }
+  ) {}
 }

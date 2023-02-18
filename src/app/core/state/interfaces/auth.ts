@@ -1,7 +1,7 @@
 import { SystemUser } from '@shomas/entities';
 
 export interface AuthState {
-  currentUser: SystemUser;
+  currentUser: SystemUser | undefined;
   isLoggedIn: boolean;
   error: Error | undefined;
 }

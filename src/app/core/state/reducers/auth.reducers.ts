@@ -4,16 +4,8 @@ import { SystemUser } from "@shomas/entities";
 import { AuthActions } from "@shomas/state";
 import { AuthState } from "../interfaces";
 
-const defaultUser: SystemUser = {
-  id: '',
-  firstname: '',
-  lastname: '',
-  email: '',
-  password: ''
-}
-
 const defaultAuthState: AuthState = {
-  currentUser: defaultUser,
+  currentUser: undefined,
   isLoggedIn: false,
   error: undefined,
 };
@@ -30,9 +22,7 @@ export const authReducer = createReducer(
     error,
   })),
   on(AuthActions.logoutSuccessful, state => ({
-    ...state,
-    user: defaultUser,
-    isLoggedIn: false,
+    ...state, ...defaultAuthState
   })),
   on(AuthActions.registerSuccessful, (state, { user }) => ({
     ...state,
