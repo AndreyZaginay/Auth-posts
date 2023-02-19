@@ -1,6 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { SystemUser } from "@shomas/entities";
 import { AuthActions } from "@shomas/state";
 import { AuthState } from "../interfaces";
 
@@ -28,5 +27,9 @@ export const authReducer = createReducer(
     ...state,
     user,
     isLoggedIn: true,
+  })),
+  on(AuthActions.registerFailed, (state, { error }) => ({
+    ...state,
+    error
   })),
 );

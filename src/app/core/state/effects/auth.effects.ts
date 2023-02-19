@@ -20,10 +20,11 @@ export class AuthEffects {
 
   readonly register$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.register),
-    mergeMap(({ registerCredentials }) => this.authService.register(registerCredentials)),
-    map(user => AuthActions.registerSuccessful({ user })),
-    tap(() => this.router.navigate(['content/dashboard/profile'])),
-    catchError((error: Error) => of(AuthActions.registerFailed({ error }))
+    mergeMap(({ registerCredentials }) => this.authService.register(registerCredentials).pipe(
+      map(user => AuthActions.registerSuccessful({ user })),
+      tap(() => this.router.navigate(['content/dashboard/profile'])),
+      catchError((error: Error) => of(AuthActions.registerFailed({ error }))
+    )),
   )));
 
   readonly logout$ = createEffect(() => this.actions$.pipe(

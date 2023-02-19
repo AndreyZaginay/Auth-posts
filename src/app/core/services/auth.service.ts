@@ -1,10 +1,8 @@
 import { Observable, of, switchMap, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { SystemUser, LoginCredentials, RegisterCredentials } from '@shomas/entities';
-import { UserService } from '@shomas/services';
-
-
+import { LoginCredentials, RegisterCredentials, SystemUser } from "@shomas/entities";
+import { UserService } from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class AuthService {
 
   login(credentials: LoginCredentials): Observable<SystemUser> {
     return this.userService.findUserByEmail(credentials.email).pipe(
-      switchMap((user: SystemUser) => user ? of(user).pipe(
+      switchMap((user: SystemUser | undefined) => user ? of(user).pipe(
         switchMap((user: SystemUser) => {
           if (user.password === credentials.password) {
             return of(user)
@@ -27,10 +25,13 @@ export class AuthService {
     );
   }
 
-  register(credentials: RegisterCredentials): Observable<SystemUser>{
+  register(credentials: RegisterCredentials): Observable<SystemUser> {
     return this.userService.findUserByEmail(credentials.email).pipe(
-      switchMap((user: SystemUser) => user ? throwError(() => new Error('Register error', { cause: 'This user already exists' })) : this.userService.createUser(credentials)) 
-    )
+      switchMap((user: SystemUser | undefined) => user
+        ? throwError(() => new Error('Auth error', { cause: 'Invalid credentials' }))
+        : this.userService.createUser(credentials)
+      )
+    );
   }
 
   logout(): Observable<string> {
