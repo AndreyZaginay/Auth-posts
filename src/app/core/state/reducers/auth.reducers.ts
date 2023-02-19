@@ -25,7 +25,7 @@ export const authReducer = createReducer(
   })),
   on(AuthActions.registerSuccessful, (state, { user }) => ({
     ...state,
-    user,
+    currentUser: user,
     isLoggedIn: true,
   })),
   on(AuthActions.registerFailed, (state, { error }) => ({
