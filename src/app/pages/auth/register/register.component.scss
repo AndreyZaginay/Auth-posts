@@ -1,0 +1,21 @@
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+form {
+    display: grid;
+    width: 450px;
+    height: 250px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+p {
+    text-align: center;
+}

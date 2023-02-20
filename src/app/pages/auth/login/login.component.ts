@@ -1,9 +1,7 @@
 import { Observable, tap } from 'rxjs';
-import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormControl, FormGroup,  Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
-import { CommonModule } from '@angular/common';
 
 import { AuthActions, selectError } from '@shomas/state';
 import { LoginCredentials } from "@shomas/entities";
@@ -12,8 +10,6 @@ import { LoginCredentials } from "@shomas/entities";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.scss' ],
-  standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule, RouterModule, CommonModule, RouterModule ]
 })
 export class LoginComponent {
   loginForm!: FormGroup;

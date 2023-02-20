@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
 import { Observable, tap } from "rxjs";
-import { CommonModule } from "@angular/common";
 
 import { AuthActions, selectError } from '@shomas/state'
 import { RegisterCredentials } from "@shomas/entities";
@@ -11,8 +10,6 @@ import { RegisterCredentials } from "@shomas/entities";
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule, CommonModule ]
 })
 export class RegisterComponent implements OnInit{
   registerForm!: FormGroup;

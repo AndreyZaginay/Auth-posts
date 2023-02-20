@@ -1,26 +1,29 @@
 <form [formGroup]="registerForm" action="">
-  <div class="input-div">
-    <span>Email</span>
-    <input type="text" formControlName="email" />
-  </div>
-  <div class="input-div">
-    <span>Firstname</span>
-    <input type="text" formControlName="firstname" />
-  </div>
-  <div class="input-div">
-    <span>Lastname</span>
-    <input type="text" formControlName="lastname" />
-  </div>
-  <div class="input-div">
-    <span>Password</span>
-    <input type="text" formControlName="password" />
-  </div>
-
-  <button [disabled]="registerForm.invalid" (click)="submitRegisterForm()">
-    Register
-  </button>
-
-  <span *ngIf="error$ | async as error" [style]="{color: 'red'}">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="text" formControlName="email" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>firstname</mat-label>
+    <input type="text" formControlName="firstname" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>lastname</mat-label>
+    <input type="text" formControlName="lastname" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="text" formControlName="password" matInput />
+  </mat-form-field>
+  <span *ngIf="error$ | async as error" [style]="{ color: 'red' }">
     {{ error }}
   </span>
+  <button
+    mat-raised-button
+    [disabled]="registerForm.invalid"
+    (click)="submitRegisterForm()"
+  >
+    Register
+  </button>
+  <p>Already have an account? <a routerLink="/auth/login">Login</a></p>
 </form>
