@@ -13,7 +13,7 @@ export class AuthEffects {
     ofType(AuthActions.login),
     mergeMap(({ loginCredentials }) => this.authService.login(loginCredentials).pipe(
       map(user => AuthActions.loginSuccessful({ user })),
-      tap(() => this.router.navigate(['content/dashboard/profile'])),
+      tap(() => this.router.navigate(['dashboard/profile'])),
       catchError((error: Error) => of(AuthActions.loginFailed({ error }))
     ))),
   ));
@@ -22,7 +22,7 @@ export class AuthEffects {
     ofType(AuthActions.register),
     mergeMap(({ registerCredentials }) => this.authService.register(registerCredentials).pipe(
       map(user => AuthActions.registerSuccessful({ user })),
-      tap(() => this.router.navigate(['content/dashboard/profile'])),
+      tap(() => this.router.navigate(['dashboard/profile'])),
       catchError((error: Error) => of(AuthActions.registerFailed({ error }))
     )),
   )));

@@ -28,6 +28,7 @@
       "@shomas/entities": ["src/app/core/entities"],
       "@shomas/services": ["src/app/core/services"],
       "@shomas/state": ["src/app/core/state"],
+      "@shomas/shared": ["src/app/shared"]
     }
   },
   "angularCompilerOptions": {
