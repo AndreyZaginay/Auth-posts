@@ -15,16 +15,22 @@ mat-toolbar {
 nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    a {
+    div {
         display: flex;
         justify-content: center;
-        color: $app-text-color;
-        text-decoration: none;
-        transition-duration: 0.5s;
-        &:hover {
-            color: azure
+        align-items: center;
+        a {
+            color: $app-text-color;
+            text-decoration: none;
+            transition-duration: 0.5s;
+            height: 30px;
+            width: fit-content;
+            &:hover {
+                color: azure
+            }
         }
     }
+ 
 }
 
 main {
