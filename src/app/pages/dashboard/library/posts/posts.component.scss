@@ -1,0 +1,21 @@
+
+.post-list{
+    display: grid;
+    grid-template-columns: repeat(5, 19%);
+    grid-gap: 1%;
+    grid-auto-rows: 100px;
+    height: 100%;
+    position: relative;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .post-card{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

@@ -1,0 +1,33 @@
+$app-text-color:  rgb(36, 190, 120);
+:host{
+    height: 100%;
+}
+
+mat-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70px;
+    span {
+        color: $app-text-color;
+    }
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    a {
+        display: flex;
+        justify-content: center;
+        color: $app-text-color;
+        text-decoration: none;
+        transition-duration: 0.5s;
+        &:hover {
+            color: azure
+        }
+    }
+}
+
+main {
+    height: calc(100% - 70px);
+}
+

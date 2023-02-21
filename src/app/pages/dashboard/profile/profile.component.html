@@ -1,6 +1,8 @@
-<p>profile works!</p>
-<button (click)="logout()">Logout</button>
+<h1>Profile</h1>
+
 <div class="user" *ngIf="user$ | async as user">
   <p>{{ user.firstname }}</p>
+
   <p>{{ user.lastname }}</p>
 </div>
+<button (click)="logout()">Logout</button>
