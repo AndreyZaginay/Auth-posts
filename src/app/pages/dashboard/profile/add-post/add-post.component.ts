@@ -1,9 +1,10 @@
-import { Validators } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FormControl , FormGroup, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+
+import { selectCurrentUserId } from '@shomas/state';
 
 @Component({
   selector: 'app-add-post',
@@ -12,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddPostComponent implements OnInit{
 postForm!: FormGroup;
-
+currentUserId: Observable<string | undefined> = this.store.select(selectCurrentUserId);
   constructor (
     private readonly store: Store,
     public dialogRef: MatDialogRef<AddPostComponent>,
@@ -27,6 +28,8 @@ postForm!: FormGroup;
     if (this.postForm.invalid) {
       return;
     }
+
+    // this.store.dispatch()
 
     this.dialogRef.close();
   }

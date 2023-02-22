@@ -1,52 +1,38 @@
+import { SystemPost } from './../entities/system-post';
+import { EMPTY, from, map, Observable, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { 
-  CollectionReference,
-  DocumentData,
-  collection, 
-  Firestore, 
-  collectionData, 
-  doc, 
-  docData, 
-  DocumentReference, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc 
-} from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 
-import { Post } from '../models/post';
+import { BasePost, CollectionPost } from '../entities';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  postsCollection: CollectionReference<DocumentData> = collection(this.firestore, 'posts');
+  private readonly postsCollection = (queryFn?: QueryFn) => this.firestore.collection<CollectionPost>('posts', queryFn);
 
-  constructor(private readonly firestore: Firestore ) {}
+  constructor(private readonly firestore: AngularFirestore ) {}
 
-  getAll(): Observable<Post[]>{
-    return collectionData(this.postsCollection, {
-      idField: 'id',
-    }) as Observable<Post[]>
+  getPosts(): Observable<SystemPost[]> {
+    return this.postsCollection().valueChanges({ idField: 'id' });
   }
 
-  getOne(id: string): Observable<Post> {
-    const postDocumentReference = doc(this.firestore, `posts/${id}`);
-    return docData(postDocumentReference, { idField: 'id' }) as Observable<Post>; 
+  findPostById(postId: string): Observable<SystemPost> {
+    return this.postsCollection().doc(postId).valueChanges({ idField: 'id' }).pipe(
+      switchMap((post: SystemPost | undefined) => post ? of(post) : EMPTY)
+    );
   }
 
-  create(post: Post): Observable<DocumentReference<DocumentData>> {
-    return from(addDoc(this.postsCollection, post)) 
+  deletePost(postId: string): Observable<string> {
+    this.postsCollection().doc(postId).delete();
+    return of(`Post with id ${ postId } was deleted`);
   }
 
-  update(post: Post): Observable<void> {
-    const postDocumentReference = doc(this.firestore, `posts/${post.id}`);
-    return from(updateDoc(postDocumentReference, { ...post }));
+  createPost(createPostDto: BasePost): Observable<SystemPost> {
+    return from(this.postsCollection().add(createPostDto)).pipe(
+      map(({ id }) => ({ id, ...createPostDto }))
+    );
   }
-
- delete(id: string): Observable<void> {
-    const postDocumentReference = doc(this.firestore, `posts/${id}`);
-    return from(deleteDoc(postDocumentReference));
-  }
-
 }
