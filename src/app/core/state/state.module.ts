@@ -1,3 +1,5 @@
+import { postsReducers } from './../../pages/dashboard/library/posts/state/posts.reducer';
+import { PostsEffects } from './../../pages/dashboard/library/posts/state/posts.effects';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
@@ -11,8 +13,8 @@ import { authReducer } from './reducers';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({auth: authReducer}),
-    EffectsModule.forRoot([AuthEffects ]),
+    StoreModule.forRoot({auth: authReducer, posts: postsReducers}),
+    EffectsModule.forRoot([AuthEffects, PostsEffects ]),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ]
 })

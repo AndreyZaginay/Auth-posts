@@ -1,5 +1,5 @@
-import { Post } from "../models/post";
+import { SystemPost } from "../entities";
 
 export interface PostsState {
-    postList: Post[]
+    postList: SystemPost[]
 }

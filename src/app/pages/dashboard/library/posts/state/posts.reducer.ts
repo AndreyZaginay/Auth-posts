@@ -10,5 +10,10 @@ export const postsReducers = createReducer(
     initialState,
     on(PostsActions.getPostsActionsSuccess, (state, { postList }) => ({
         ...state, postList: postList, 
-    }))
+    })),
+    on(PostsActions.createPostSuccess, (state, { post }) => {
+        const postList = [...state.postList];
+        postList.push(post);
+        return { ...state, postList }
+    })
 )

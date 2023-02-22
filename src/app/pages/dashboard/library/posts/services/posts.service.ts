@@ -1,11 +1,8 @@
-import { SystemPost } from './../entities/system-post';
 import { EMPTY, from, map, Observable, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 
-import { BasePost, CollectionPost } from '../entities';
-
-
+import { BasePost, CollectionPost, SystemPost } from '../entities';
 
 @Injectable({
   providedIn: 'root'

@@ -1,1 +1,14 @@
-<div class="post-list"></div>
+<div class="post-list" *ngIf="postList$ | async as postList">
+  <div class="post-card" *ngFor="let post of postList">
+    {{ post.title }}
+  </div>
+</div>
+<!-- <div class="post-list">
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+  <div class="post-card">'asdasdas'</div>
+</div> -->
