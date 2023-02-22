@@ -31,7 +31,7 @@ export class AuthEffects {
     ofType(AuthActions.logout),
     mergeMap(() => this.authService.logout()),
     map(() => AuthActions.logoutSuccessful()),
-    tap(() => this.router.navigate(['auth'])),
+    tap(() => this.router.navigate([''])),
     catchError((error: Error) => of(AuthActions.logoutFailed({ error }))
   )));
 

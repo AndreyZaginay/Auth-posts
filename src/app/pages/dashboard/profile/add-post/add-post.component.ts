@@ -1,7 +1,7 @@
 import { map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { FormControl , FormGroup, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import * as PostsActions from '../../library/posts/state/posts.actions'
@@ -14,7 +14,7 @@ import { BasePost, CollectionPost } from '../../library/posts/entities';
   styleUrls: ['./add-post.component.scss']
 })
 
-export class AddPostComponent implements OnInit{
+export class AddPostComponent implements OnInit, OnDestroy{
 postForm!: FormGroup;
 currentUserId: Observable<string | undefined> = this.store.select(selectCurrentUserId);
 private readonly destroy$: Subject<void> = new Subject<void>();
@@ -26,6 +26,11 @@ private readonly destroy$: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
     this.initPostForm();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   submitPostForm(): void {

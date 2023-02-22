@@ -3,18 +3,22 @@
     <mat-label>Email</mat-label>
     <input type="text" formControlName="email" matInput />
   </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>firstname</mat-label>
     <input type="text" formControlName="firstname" matInput />
   </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>lastname</mat-label>
     <input type="text" formControlName="lastname" matInput />
   </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
-    <input type="text" formControlName="password" matInput />
+    <input type="password" formControlName="password" matInput />
   </mat-form-field>
+
   <span *ngIf="error$ | async as error" [style]="{ color: 'red' }">
     {{ error }}
   </span>

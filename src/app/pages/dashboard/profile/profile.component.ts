@@ -19,9 +19,7 @@ export class ProfileComponent implements OnInit{
 
   constructor(
     private readonly store: Store,
-    private readonly router: Router,
     private readonly dialog: MatDialog
-
     ) {}
 
   ngOnInit(): void {
@@ -29,7 +27,6 @@ export class ProfileComponent implements OnInit{
 
   logout(): void {
     this.store.dispatch(AuthActions.logout());
-    this.router.navigate(['']);
   }
 
   openDialog(): void {
