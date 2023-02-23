@@ -1,5 +1,11 @@
-<div class="psot" *ngIf="post$ | async as post">
-  {{ post.title }}
-  {{ post.content }}
+<div class="post" *ngIf="post$ | async as post">
+  <div class="title-container">
+    <h1>Title</h1>
+    {{ post.title }}
+  </div>
+  <hr />
+  <div class="content-container">
+    {{ post.content }}
+  </div>
   <a routerLink="">Post author</a>
 </div>

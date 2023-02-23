@@ -1,15 +1,11 @@
-<div class="form-conatiner">
-  <form [formGroup]="postForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
-      <input type="text" formControlName="title" matInput />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Content</mat-label>
-      <input type="text" formControlName="content" matInput />
-    </mat-form-field>
-    <button [disabled]="postForm.invalid" (click)="submitPostForm()">
-      Add
-    </button>
-  </form>
-</div>
+<form [formGroup]="postForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input type="text" formControlName="title" matInput />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Content</mat-label>
+    <textarea type="text" formControlName="content" matInput></textarea>
+  </mat-form-field>
+  <button [disabled]="postForm.invalid" (click)="submitPostForm()">Add</button>
+</form>

@@ -1,4 +1,11 @@
-.form-conatiner {
-    width: 350px;
-    height: 250px;
-}
+
+  
+    form {
+        width: 350px;
+        height: 350px;
+        display: grid;
+        grid-template-rows: 30% 50% 20%;
+        textarea{
+            height: 100%;
+        }
+    }

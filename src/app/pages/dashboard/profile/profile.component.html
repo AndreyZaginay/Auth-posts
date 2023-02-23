@@ -1,9 +1,9 @@
 <h1>Profile</h1>
 
 <div class="userInfo" *ngIf="user$ | async as user">
-  <p>{{ user.firstname }}</p>
-  <p>{{ user.lastname }}</p>
+  <p>Firstname: {{ user.firstname }}</p>
+  <p>Lastname: {{ user.lastname }}</p>
 </div>
-<button (click)="logout()">Logout</button>
-<button (click)="openDialog()">add post</button>
+<button mat-raised-button (click)="logout()">Logout</button>
+<button mat-raised-button (click)="openDialog()">add post</button>
 <div class="posts"></div>
