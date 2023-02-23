@@ -22,5 +22,6 @@ constructor(
     this.store.dispatch(PostsActions.getPostsActions());
   }
 
+  
 
 }

@@ -1,5 +1,9 @@
 <div class="post-list" *ngIf="postList$ | async as postList">
-  <div class="post-card" *ngFor="let post of postList">
+  <div
+    class="post-card"
+    *ngFor="let post of postList"
+    [routerLink]="['post/', post.id]"
+  >
     {{ post.title }}
   </div>
 </div>

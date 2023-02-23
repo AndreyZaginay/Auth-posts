@@ -20,13 +20,17 @@ nav {
         justify-content: center;
         align-items: center;
         a {
+            text-align: center;
             color: $app-text-color;
             text-decoration: none;
             transition-duration: 0.5s;
-            height: 30px;
-            width: fit-content;
+            height: 40px;
+            background-color: rgb(195, 109, 235);
+            width: 90px;
+            border-radius: 5%;
             &:hover {
-                color: azure
+                color: azure;
+                background-color: rgb(145, 118, 255);
             }
         }
     }
@@ -35,5 +39,6 @@ nav {
 
 main {
     height: calc(100% - 70px);
+    background-color: lightgoldenrodyellow;
 }
 

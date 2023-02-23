@@ -1,1 +1,5 @@
-<p>post works!</p>
+<div class="psot" *ngIf="post$ | async as post">
+  {{ post.title }}
+  {{ post.content }}
+  <a routerLink="">Post author</a>
+</div>

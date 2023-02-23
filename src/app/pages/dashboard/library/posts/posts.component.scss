@@ -16,9 +16,11 @@
         display: grid;
         justify-content: center;
         align-items: center;
+        background-color: cornflowerblue;
         transition-duration: 0.5s;
+        cursor: pointer;
         &:hover {
-            background-color: burlywood;
+            background-color: rgb(189, 82, 143);
         }
     }
 }

@@ -13,7 +13,12 @@ export const LibraryRouting: Routes = [
                 },
                 {
                     path: '**',
-                    redirectTo: ''
+                    redirectTo: 'posts'
+                },
+                {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'posts'
                 }
         ]
     }
