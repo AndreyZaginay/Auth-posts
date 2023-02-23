@@ -1,4 +1,4 @@
-import { EMPTY, from, map, Observable, of, switchMap } from 'rxjs';
+import { EMPTY, map, Observable, of, switchMap, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 
@@ -23,8 +23,10 @@ export class PostsService {
   }
 
   deletePost(postId: string): Observable<string> {
-    this.postsCollection().doc(postId).delete();
-    return of(`Post with id ${ postId } was deleted`);
+    return from(this.postsCollection().doc(postId).delete()).pipe(
+      map(() => postId)
+    )
+
   }
 
   createPost(createPostDto: BasePost): Observable<SystemPost> {

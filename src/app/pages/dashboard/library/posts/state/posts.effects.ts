@@ -1,4 +1,4 @@
-import { mergeMap } from 'rxjs';
+import { mergeMap, take, tap } from 'rxjs';
 import { catchError, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -11,7 +11,7 @@ import * as PostsActions from './posts.actions'
 @Injectable()
 export class PostsEffects {
 
-    getPosts$ = createEffect(() => {
+   readonly getPosts$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(PostsActions.getPostsActions),
             mergeMap(() => this.postsService.getPosts().pipe(
@@ -21,7 +21,7 @@ export class PostsEffects {
         )
     });
 
-    createPost$ = createEffect(() => {
+   readonly createPost$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(PostsActions.createPostActions),
             mergeMap(({ newPost }) => this.postsService.createPost(newPost).pipe(
@@ -31,12 +31,13 @@ export class PostsEffects {
         )
     })
 
-    deletePost$ = createEffect(() => {
+   readonly deletePost$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(PostsActions.deletePostActions),
-            mergeMap(({ postId }) => this.postsService.deletePost(postId)),
-            map(() => PostsActions.deletePostSuccess()),
-            // catchError(error: Error) => of(PostsActions.deletePostFailed({ error }))
+            mergeMap((action) => this.postsService.deletePost(action.postId).pipe(
+                map((postId) => PostsActions.deletePostSuccess({ postId })),
+                // catchError(error: Error) => of(PostsActions.deletePostFailed({ error }))
+            )),
          )
     })
 

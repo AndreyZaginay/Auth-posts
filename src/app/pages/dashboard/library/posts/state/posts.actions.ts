@@ -11,5 +11,5 @@ export const createPostSuccess = createAction('[POSTS] create success', props<{ 
 export const createPostFailed = createAction('[POSTS] create failed', props<{ error: Error }>());
 
 export const deletePostActions = createAction('[POSTS] delete post', props<{ postId: string }>());
-export const deletePostSuccess = createAction('[POSTS] delete post');
+export const deletePostSuccess = createAction('[POSTS] delete post', props<{ postId: string }>());
 export const deletePostFailed = createAction('[POSTS] delete post failed', props<{ error: Error }>());
