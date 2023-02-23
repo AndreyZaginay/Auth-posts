@@ -1,7 +1,7 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 
-import { PostsState } from './posts-state.interface';
+import { PostsState } from '../posts-state.interface';
 
 export const selectPostState = createFeatureSelector<PostsState>('posts');
 

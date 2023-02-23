@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SystemPost } from './../entities';
 import { ActivatedRoute } from '@angular/router';
-import { selectPost } from '../state/posts.selectors';
+import { selectPost } from '@shomas/posts/state';
 
 @Component({
   selector: 'app-post',

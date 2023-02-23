@@ -1,11 +1,10 @@
-import { postsReducers } from './../../pages/dashboard/library/posts/state/posts.reducer';
-import { PostsEffects } from './../../pages/dashboard/library/posts/state/posts.effects';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { postsReducers , PostsEffects} from '@shomas/posts/state';
 import { AuthEffects } from './effects';
 import { authReducer } from './reducers';
 

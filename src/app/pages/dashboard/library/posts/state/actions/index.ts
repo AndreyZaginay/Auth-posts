@@ -1,0 +1,1 @@
+export * as PostsActions from './posts.actions'

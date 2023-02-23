@@ -5,10 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SystemUser } from "@shomas/core";
 import { selectUser, AuthActions } from "@shomas/state";
-import { SystemPost } from './../library/posts/entities';
 import { AddPostComponent } from './add-post/add-post.component';
-import { selectPostsByUserId } from './../library/posts/state/posts.selectors';
-import * as PostsActions from '../library/posts/state/posts.actions';
+import { SystemPost } from './../library/posts/entities';
+import { selectPostsByUserId,  PostsActions } from '@shomas/posts/state';
 
 @Component({
   selector: 'app-profile',

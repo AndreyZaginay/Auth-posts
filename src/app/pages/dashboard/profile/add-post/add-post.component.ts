@@ -1,12 +1,13 @@
-import { map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { FormControl , FormGroup, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import * as PostsActions from '../../library/posts/state/posts.actions'
+
 import { selectCurrentUserId } from '@shomas/state';
-import { BasePost, CollectionPost } from '../../library/posts/entities';
+import { BasePost } from '../../library/posts/entities';
+import { PostsActions } from '@shomas/posts/state';
 
 @Component({
   selector: 'app-add-post',

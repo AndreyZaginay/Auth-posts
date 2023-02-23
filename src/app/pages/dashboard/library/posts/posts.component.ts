@@ -2,8 +2,8 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as PostsActions from '../posts/state/posts.actions';
-import { selectPostList } from './state/posts.selectors';
+import * as PostsActions from './state/actions/posts.actions';
+import { selectPostList } from '@shomas/posts/state';
 import { SystemPost } from './entities';
 
 @Component({

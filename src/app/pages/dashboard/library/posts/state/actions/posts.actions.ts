@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 
-import { SystemPost, BasePost } from "../entities";
+import { SystemPost, BasePost } from "../../entities";
 
 export const getPostsActions = createAction('[POSTS] get posts');
 export const getPostsActionsSuccess = createAction('[POSTS] get posts success', props<{ postList: SystemPost[] }>());
